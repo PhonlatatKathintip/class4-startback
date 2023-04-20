@@ -21,7 +21,6 @@ mongoose.connect(uri).then(
     console.error("Connection to mongodb is error", err?.message);
   }
 );
-////
 
 // app.use //
 
@@ -30,25 +29,30 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/user", async (req, res) => {
   console.log("Create User Body", req.body);
-  res.json(req.body);
+  const newUser = new User(req.body);
+  try {
+    await newUser.save({});
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(400).json({ err: error });
+  }
 });
 
 app.get("/", (req, res) => {
   res.send("Hello");
 });
-//     //
 
 //function//
-app.get("/user", async (req, res) => {
-  try {
-    const result = await User.find();
-    console.log("Find All Users", result);
-    res.json({ rows: result });
-  } catch (error) {
-    console.log("error All Users", error);
-    res.status(404).json({ err: error });
-  }
-});
+// app.get("/user", async (req, res) => {
+//   try {
+//     const result = await User.find();
+//     console.log("Find All Users", result);
+//     res.json({ rows: result });
+//   } catch (error) {
+//     console.log("error All Users", error);
+//     res.status(404).json({ err: error });
+//   }
+// });
 
 app.get("/user/:id", (req, res) => {
   console.log("Fine One User with Id" + req.params.id);
