@@ -1,10 +1,20 @@
 import React from "react";
 import _ from "lodash";
 import { Table, Button } from "@mui/joy";
+import axios from "axios";
 
-const handleDeleteUser = (userId) => {};
-
-export default function Showstw({ data }) {
+export default function Showstw({ data, setIsReady, isReady }) {
+  const handleDeleteUser = (userId) => {
+    axios
+      .delete("http://localhost:3001/api/user/" + userId)
+      .then((res) => {
+        setIsReady(!isReady);
+      })
+      .catch((error) => {
+        alert(error?.message);
+        console.error("Error", error?.message);
+      });
+  };
   console.log("data", data);
   return (
     <div>

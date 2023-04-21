@@ -16,12 +16,12 @@ function App() {
 
   // use effect
   const getAllUser = () => {
-    setIsReady(false);
+    // setIsReady(false);
     axios
-      .get("http://localhost:3001/api/user")
+      .get(` ${process.env.REACT_APP_API_URL}/user `)
       .then((res) => {
         setUsers(res?.data?.rows);
-        setIsReady(true);
+        // setIsReady(true);
         console.log("User ", res?.data?.rows);
       })
       .catch((error) => {
@@ -32,16 +32,16 @@ function App() {
   useEffect(() => {
     getAllUser();
     return () => {};
-  }, []);
+  }, [isReady]);
   //
 
-  if (!isReady) {
-    return (
-      <div>
-        <LinearProgress />
-      </div>
-    );
-  }
+  // if (!isReady) {
+  //   return (
+  //     <div>
+  //       <LinearProgress />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
@@ -68,6 +68,8 @@ function App() {
           data={_.filter(users, (people) =>
             people?.name?.match(new RegExp(searchTerm, "i"))
           )}
+          setIsReady={setIsReady}
+          isReady={isReady}
         />
       </div>
     </div>
