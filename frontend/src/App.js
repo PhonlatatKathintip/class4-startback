@@ -20,6 +20,7 @@ function App() {
       .get("http://localhost:3001/api/user")
       .then((res) => {
         setUser(res.data.rows);
+        setIsReady(true);
         console.log("People ", res.data);
       })
       .catch((error) => {
