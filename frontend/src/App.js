@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, Input, LinearProgress } from "@mui/joy";
+import { Card, CardContent, Input, LinearProgress, Button } from "@mui/joy";
+import { TextField } from "@mui/material";
 import "./index.css";
 import _ from "lodash";
 import axios from "axios";
@@ -33,6 +34,18 @@ function App() {
 
   return (
     <div>
+      <Card>
+        <div className="mb-2">
+          <div>Enter Your Name</div>
+          <Input />
+          <div>Enter Your Department</div>
+          <Input />
+        </div>
+        <div className="flex justify-center gap-2">
+          <Button color="success">Send...Your....Data</Button>
+          <Button color="warning">Change.Your....Data</Button>
+        </div>
+      </Card>
       <div>
         <Card>
           <CardContent>
