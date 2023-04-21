@@ -59,9 +59,7 @@ function App() {
             </div>
           </CardContent>
         </Card>
-        <div>
-          ---------------------------------------------------------------
-        </div>
+
         <Showstw
           data={_.filter(users, (people) =>
             people?.name?.match(new RegExp(searchTerm, "i"))

@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { Table, Button } from "@mui/joy";
+import { Table, Button, Card } from "@mui/joy";
 import axios from "axios";
 
 export default function Showstw({ data, setIsReady, isReady }) {
@@ -17,33 +17,35 @@ export default function Showstw({ data, setIsReady, isReady }) {
   };
   console.log("data", data);
   return (
-    <div>
-      <h3 className="font-bold">User List</h3>
-      <Table>
-        <thead>
-          <tr>
-            <th>ลำดับที่</th>
-            <th>ชื่อ</th>
-            <th>แผนก</th>
-            <th>ดำเนินการ</th>
-          </tr>
-        </thead>
-        {_.map(data, (eachUser, index) => (
-          <tr>
-            <td>{index + 1}</td>
-            <td>{eachUser?.name}</td>
-            <td>{eachUser?.department}</td>
-            <td>
-              <Button
-                color="danger"
-                onClick={() => handleDeleteUser(eachUser?._id)}
-              >
-                Delete
-              </Button>
-            </td>
-          </tr>
-        ))}
-      </Table>
-    </div>
+    <Card>
+      <div>
+        <h3 className="font-bold">User List</h3>
+        <Table>
+          <thead>
+            <tr>
+              <th>ลำดับที่</th>
+              <th>ชื่อ</th>
+              <th>แผนก</th>
+              <th>ดำเนินการ</th>
+            </tr>
+          </thead>
+          {_.map(data, (eachUser, index) => (
+            <tr>
+              <td>{index + 1}</td>
+              <td>{eachUser?.name}</td>
+              <td>{eachUser?.department}</td>
+              <td>
+                <Button
+                  color="danger"
+                  onClick={() => handleDeleteUser(eachUser?._id)}
+                >
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </Table>
+      </div>
+    </Card>
   );
 }
