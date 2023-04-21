@@ -2,6 +2,8 @@ import React from "react";
 import _ from "lodash";
 import { Table, Button } from "@mui/joy";
 
+const handleDeleteUser = (userId) => {};
+
 export default function Showstw({ data }) {
   console.log("data", data);
   return (
@@ -22,7 +24,12 @@ export default function Showstw({ data }) {
             <td>{eachUser?.name}</td>
             <td>{eachUser?.department}</td>
             <td>
-              <Button color="danger">ลบ</Button>
+              <Button
+                color="danger"
+                onClick={() => handleDeleteUser(eachUser?._id)}
+              >
+                Delete
+              </Button>
             </td>
           </tr>
         ))}

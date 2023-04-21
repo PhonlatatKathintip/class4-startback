@@ -10,26 +10,29 @@ function App() {
 
   const [isReady, setIsReady] = useState(false);
 
-  const [users, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
 
   console.log("Users in server : ", users);
 
   // use effect
-  useEffect(() => {
+  const getAllUser = () => {
+    setIsReady(false);
     axios
       .get("http://localhost:3001/api/user")
       .then((res) => {
-        setUser(res.data.rows);
+        setUsers(res?.data?.rows);
         setIsReady(true);
-        console.log("People ", res.data);
+        console.log("User ", res?.data?.rows);
       })
       .catch((error) => {
         console.error("Error", error?.message);
       });
+  };
 
+  useEffect(() => {
+    getAllUser();
     return () => {};
   }, []);
-
   //
 
   if (!isReady) {
