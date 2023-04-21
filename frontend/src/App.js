@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, Input } from "@mui/joy";
+import { Card, CardContent, Input, LinearProgress } from "@mui/joy";
 import "./index.css";
 import _ from "lodash";
 import axios from "axios";
-//import Button from "@mui/material/Button";
-
 import Showstw from "./Components/Showstw";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [isReady, setIsReady] = useState(false);
 
   const [users, setUser] = useState([]);
 
@@ -30,6 +30,14 @@ function App() {
   }, []);
 
   //
+
+  if (!isReady) {
+    return (
+      <div>
+        <LinearProgress />
+      </div>
+    );
+  }
 
   return (
     <div>
