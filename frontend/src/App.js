@@ -3,23 +3,24 @@ import { Card, CardContent, Input } from "@mui/joy";
 import "./index.css";
 import _ from "lodash";
 import axios from "axios";
-import Button from "@mui/material/Button";
+//import Button from "@mui/material/Button";
 
 import Showstw from "./Components/Showstw";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [starWarPeople, setStarWarPeople] = useState([]);
+  const [users, setUser] = useState([]);
 
-  console.log("starWarPeople", starWarPeople);
+  console.log("Users in server : ", users);
 
+  // use effect
   useEffect(() => {
     axios
-      .get("https://swapi.dev/api/people/")
+      .get("http://localhost:3001/api/user")
       .then((res) => {
-        setStarWarPeople(res.data.results);
-        console.log("People ", res.data.results);
+        setUser(res.data.rows);
+        console.log("People ", res.data);
       })
       .catch((error) => {
         console.error("Error", error?.message);
@@ -27,6 +28,8 @@ function App() {
 
     return () => {};
   }, []);
+
+  //
 
   return (
     <div>
@@ -50,7 +53,7 @@ function App() {
           ---------------------------------------------------------------
         </div>
         <Showstw
-          data={_.filter(starWarPeople, (people) =>
+          data={_.filter(users, (people) =>
             people?.name?.match(new RegExp(searchTerm, "i"))
           )}
         />

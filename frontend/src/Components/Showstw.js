@@ -8,7 +8,7 @@ export default function Showstw({ data }) {
       {_.map(data, (people, index) => (
         <div>
           <div>
-            {index + 1} : {people?.name}
+            {index + 1} : {people?.name} {people?.department}
           </div>
           <div></div>
         </div>
