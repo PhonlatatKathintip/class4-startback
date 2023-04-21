@@ -14,14 +14,11 @@ function App() {
 
   console.log("Users in server : ", users);
 
-  // use effect
   const getAllUser = () => {
-    // setIsReady(false);
     axios
       .get(` ${process.env.REACT_APP_API_URL}/user `)
       .then((res) => {
         setUsers(res?.data?.rows);
-        // setIsReady(true);
         console.log("User ", res?.data?.rows);
       })
       .catch((error) => {
@@ -33,15 +30,6 @@ function App() {
     getAllUser();
     return () => {};
   }, [isReady]);
-  //
-
-  // if (!isReady) {
-  //   return (
-  //     <div>
-  //       <LinearProgress />
-  //     </div>
-  //   );
-  // }
 
   return (
     <div>
@@ -58,9 +46,6 @@ function App() {
             </div>
           </CardContent>
         </Card>
-        {/* <Button onClick={setSearchTerm} color="secondary" variant="contained">
-          Start Searching
-        </Button> */}
         <div>
           ---------------------------------------------------------------
         </div>
