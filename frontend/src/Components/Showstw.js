@@ -40,7 +40,6 @@ export default function Showstw({
   console.log("data", data);
   return (
     <div className="mt-5">
-      <h3 className="font-bold">User List</h3>
       <Table>
         <thead>
           <tr>
