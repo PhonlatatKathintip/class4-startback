@@ -37,6 +37,19 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  console.log("Edit Users", req?.params?.id);
+  try {
+    const result = await User.findByIdAndUpdate(
+      { _id: req?.params?.id },
+      req?.body
+    );
+    res.status(204).json(result);
+  } catch (error) {
+    res.status(404).json({ err: error });
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   console.log("Delete Users", req?.params?.id);
   try {

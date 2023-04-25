@@ -5,8 +5,13 @@ import "./index.css";
 import _ from "lodash";
 import axios from "axios";
 import Showstw from "./Components/Showstw";
+import Post from "./Components/fpost";
 
 function App() {
+  const [name, setName] = useState("");
+
+  const [department, setDepartment] = useState("");
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isReady, setIsReady] = useState(false);
@@ -27,6 +32,21 @@ function App() {
       });
   };
 
+  const postUser = () => {
+    axios
+      .post(` ${process.env.REACT_APP_API_URL}/user`, {
+        name: name,
+        department: department,
+      })
+      .then((res) => {
+        setIsReady(!isReady);
+        console.log("User ", res?.data?.rows);
+      })
+      .catch((error) => {
+        console.error("Error", error?.message);
+      });
+  };
+
   useEffect(() => {
     getAllUser();
     return () => {};
@@ -37,13 +57,15 @@ function App() {
       <Card>
         <div className="mb-2">
           <div>Enter Your Name</div>
-          <Input />
+          <Input onChange={(e) => setName(e.target.value)} />
           <div>Enter Your Department</div>
-          <Input />
+          <Input onChange={(e) => setDepartment(e.target.value)} />
         </div>
         <div className="flex justify-center gap-2">
-          <Button color="success">Send...Your....Data</Button>
-          <Button color="warning">Change.Your....Data</Button>
+          <Button color="success" onClick={() => postUser()}>
+            Send...Your....Data
+          </Button>
+          <Button color="warning">Save....Your....Data</Button>
         </div>
       </Card>
       <div>
