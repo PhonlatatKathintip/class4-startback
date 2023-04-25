@@ -61,11 +61,10 @@ function App() {
           <div>Enter Your Department</div>
           <Input onChange={(e) => setDepartment(e.target.value)} />
         </div>
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 bt-2">
           <Button color="success" onClick={() => postUser()}>
             Send...Your....Data
           </Button>
-          <Button color="warning">Save....Your....Data</Button>
         </div>
       </Card>
       <div>
@@ -88,6 +87,8 @@ function App() {
           )}
           setIsReady={setIsReady}
           isReady={isReady}
+          name={name}
+          department={department}
         />
       </div>
     </div>

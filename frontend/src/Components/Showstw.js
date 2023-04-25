@@ -3,7 +3,13 @@ import _ from "lodash";
 import { Table, Button } from "@mui/joy";
 import axios from "axios";
 
-export default function Showstw({ data, setIsReady, isReady }) {
+export default function Showstw({
+  data,
+  setIsReady,
+  isReady,
+  name,
+  department,
+}) {
   const handleDeleteUser = (userId) => {
     axios
       .delete("http://localhost:3001/api/user/" + userId)
@@ -19,8 +25,8 @@ export default function Showstw({ data, setIsReady, isReady }) {
   const handleEditUser = (userId) => {
     axios
       .put("http://localhost:3001/api/user/" + userId, {
-        name: "asdsads",
-        department: "department",
+        name: name,
+        department: department,
       })
       .then((res) => {
         setIsReady(!isReady);
