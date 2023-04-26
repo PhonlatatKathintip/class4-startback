@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, Input, Button } from "@mui/joy";
-import Modal from "@mui/material/Modal";
+import { Card, CardContent, Input } from "@mui/joy";
 import "./index.css";
 import _ from "lodash";
 import axios from "axios";
@@ -11,6 +10,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
 
 function App() {
   const [name, setName] = useState("");
@@ -22,6 +23,22 @@ function App() {
   const [isReady, setIsReady] = useState(false);
 
   const [users, setUsers] = useState([]);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   console.log("Users in server : ", users);
 
@@ -75,26 +92,41 @@ function App() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               My Search Engine Data Base
             </Typography>
-            <Button color="inherit">Add User</Button>
+            <div>
+              <Button color="inherit" onClick={handleOpen}>
+                Add User
+              </Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Add your Info
+                  </Typography>
+                  <div>Enter Your Name</div>
+                  <Input onChange={(e) => setName(e.target.value)} />
+                  <div>Enter Your Department</div>
+                  <Input onChange={(e) => setDepartment(e.target.value)} />
+                  <Button color="success" onClick={() => postUser()}>
+                    Send Data
+                  </Button>
+                </Box>
+              </Modal>
+            </div>
           </Toolbar>
         </AppBar>
       </Box>
       {/* ////// */}
       <Card variant="outlined">
-        <div className="mb-2">
-          <div>Enter Your Name</div>
-          <Input onChange={(e) => setName(e.target.value)} />
-          <div>Enter Your Department</div>
-          <Input onChange={(e) => setDepartment(e.target.value)} />
-        </div>
-        <div className="flex justify-center gap-2 bt-2">
-          <Button color="success" onClick={() => postUser()}>
-            Send...Your....Data
-          </Button>
-          <Button color="warning" onClick={() => Modal()}>
-            popup test
-          </Button>
-        </div>
+        <div className="mb-2"></div>
+        <div className="flex justify-center gap-2 bt-2"></div>
         <CardContent>
           <form>
             <label
