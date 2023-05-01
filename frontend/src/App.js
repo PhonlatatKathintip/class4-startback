@@ -16,7 +16,11 @@ import Modal from "@mui/material/Modal";
 function App() {
   const [name, setName] = useState("");
 
-  const [department, setDepartment] = useState("");
+  const [price, setPrice] = useState("");
+
+  const [image, setImage] = useState("");
+
+  const [slug, setSlug] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -58,7 +62,9 @@ function App() {
     axios
       .post(` ${process.env.REACT_APP_API_URL}/user`, {
         name: name,
-        department: department,
+        price: price,
+        image: image,
+        slug: slug,
       })
       .then((res) => {
         setIsReady(!isReady);
@@ -110,12 +116,17 @@ function App() {
                   >
                     Add your Info
                   </Typography>
-                  <div>Enter Your Name</div>
+                  <div>Enter Product Name</div>
                   <Input onChange={(e) => setName(e.target.value)} />
-                  <div>Enter Your Department</div>
-                  <Input onChange={(e) => setDepartment(e.target.value)} />
-                  <Button color="success" onClick={() => postUser()}>
-                    Send Data
+                  <div>Enter Product price</div>
+                  <Input onChange={(e) => setPrice(e.target.value)} />
+                  <div>Enter Product image</div>
+                  <Input onChange={(e) => setImage(e.target.value)} />
+                  <div>Enter Product slug</div>
+                  <Input onChange={(e) => setSlug(e.target.value)} />
+                  <div className="mt-3"></div>
+                  <Button variant="outlined" onClick={() => postUser()}>
+                    Send Product Data
                   </Button>
                 </Box>
               </Modal>
@@ -169,7 +180,9 @@ function App() {
             setIsReady={setIsReady}
             isReady={isReady}
             name={name}
-            department={department}
+            price={price}
+            image={image}
+            slug={slug}
           />
         </CardContent>
       </Card>
