@@ -1,17 +1,34 @@
 import React from "react";
 import _ from "lodash";
-import { Table, Button, Box } from "@mui/joy";
+import { Table } from "@mui/joy";
 import axios from "axios";
+import { Input, Modal, Box, Typography, Button } from "@mui/material";
 
-export default function Showstw({
-  data,
-  setIsReady,
-  isReady,
-  name,
-  price,
-  image,
-  slug,
-}) {
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function Showstw({ data, setIsReady, isReady }) {
+  const [Link, setLink] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [image, setImage] = React.useState("");
+  const [slug, setSlug] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = (Id) => {
+    setOpen(true);
+    setLink(Id);
+  };
+  const handleClose = () => setOpen(false);
+
   const handleDeleteUser = (userId) => {
     axios
       .delete("http://localhost:3001/api/user/" + userId)
@@ -24,13 +41,14 @@ export default function Showstw({
       });
   };
 
-  const handleEditUser = (userId) => {
+  const handleEditUser = () => {
+    // console.log("Id", userId);
     axios
-      .put("http://localhost:3001/api/user/" + userId, {
+      .put("http://localhost:3001/api/user/" + Link, {
         name: name,
         price: price,
-        slug: slug,
         image: image,
+        slug: slug,
       })
       .then((res) => {
         setIsReady(!isReady);
@@ -39,9 +57,12 @@ export default function Showstw({
         alert(error?.message);
         console.error("Error", error?.message);
       });
+    setOpen(false);
   };
 
-  console.log("data", data);
+  // console.log("data", data);
+  // console.log("each id :" eachUser?._id);
+
   return (
     <div className="mt-5">
       <Table>
@@ -67,19 +88,54 @@ export default function Showstw({
             <td>{eachUser?.image}</td>
             <td>
               <div className="flex gap-3 justify-center">
-                <Button
-                  color="danger"
-                  onClick={() => handleDeleteUser(eachUser?._id)}
-                >
-                  Delete
-                </Button>
+                <div>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleDeleteUser(eachUser?._id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleOpen(eachUser?._id)}
+                  >
+                    Edit
+                  </Button>
 
-                <Button
-                  color="warning"
-                  onClick={() => handleEditUser(eachUser?._id)}
-                >
-                  Edit
-                </Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                      >
+                        Add your Info
+                      </Typography>
+                      <div>Enter Product Name</div>
+                      <Input onChange={(e) => setName(e.target.value)} />
+                      <div>Enter Product price</div>
+                      <Input onChange={(e) => setPrice(e.target.value)} />
+                      <div>Enter Product image</div>
+                      <Input onChange={(e) => setImage(e.target.value)} />
+                      <div>Enter Product slug</div>
+                      <Input onChange={(e) => setImage(e.target.value)} />
+                      <div className="mt-5"></div>
+                      <Button
+                        variant="outline"
+                        onClick={() => handleEditUser()}
+                      >
+                        Send Product Data
+                      </Button>
+                    </Box>
+                  </Modal>
+                </div>
               </div>
             </td>
           </tr>

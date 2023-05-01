@@ -44,14 +44,14 @@ function App() {
     p: 4,
   };
 
-  console.log("Users in server : ", users);
+  // console.log("Users in server : ", users);
 
   const getAllUser = () => {
     axios
       .get(` ${process.env.REACT_APP_API_URL}/user `)
       .then((res) => {
         setUsers(res?.data?.rows);
-        console.log("User ", res?.data?.rows);
+        // console.log("User ", res?.data?.rows);
       })
       .catch((error) => {
         console.error("Error", error?.message);
@@ -68,7 +68,7 @@ function App() {
       })
       .then((res) => {
         setIsReady(!isReady);
-        console.log("User ", res?.data?.rows);
+        // console.log("User ", res?.data?.rows);
       })
       .catch((error) => {
         console.error("Error", error?.message);
@@ -79,6 +79,8 @@ function App() {
     getAllUser();
     return () => {};
   }, [isReady]);
+
+  // console.log("DDAA :", postUser);
 
   return (
     <div>
@@ -124,8 +126,8 @@ function App() {
                   <Input onChange={(e) => setImage(e.target.value)} />
                   <div>Enter Product slug</div>
                   <Input onChange={(e) => setSlug(e.target.value)} />
-                  <div className="mt-3"></div>
-                  <Button variant="outlined" onClick={() => postUser()}>
+                  <div className="mt-5"></div>
+                  <Button variant="outline" onClick={() => postUser()}>
                     Send Product Data
                   </Button>
                 </Box>
@@ -135,6 +137,7 @@ function App() {
         </AppBar>
       </Box>
       {/* ////// */}
+
       <Card variant="outlined">
         <div className="mb-2"></div>
         <div className="flex justify-center gap-2 bt-2"></div>
@@ -173,6 +176,7 @@ function App() {
               />
             </div>
           </form>
+
           <Showstw
             data={_.filter(users, (people) =>
               people?.name?.match(new RegExp(searchTerm, "i"))
